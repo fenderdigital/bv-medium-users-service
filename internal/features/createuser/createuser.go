@@ -24,7 +24,7 @@ type CreateUser struct {
 func (s *CreateUser) Create(ctx context.Context, name, email string) error {
 	id, err := s.uuid()
 	if err != nil {
-		return fmt.Errorf("pkg.GenerateUUID failed: %w", err)
+		return fmt.Errorf("s.uuid failed: %w", err)
 	}
 
 	if _, err := s.store.Create(ctx, id, name, email); err != nil {
