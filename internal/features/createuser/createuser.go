@@ -2,7 +2,7 @@ package createuser
 
 import (
 	"fmt"
-	"github.com/branebrvl/medium-users-service/internal"
+	"github.com/fenderdigital/bv-medium-users-service/internal"
 )
 
 type Storage interface {

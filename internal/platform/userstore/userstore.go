@@ -3,7 +3,7 @@ package userstore
 import (
 	"fmt"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
-	"github.com/branebrvl/medium-users-service/internal"
+	"github.com/fenderdigital/bv-medium-users-service/internal"
 )
 
 type UserRow struct {

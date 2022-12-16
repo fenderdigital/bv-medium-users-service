@@ -1,4 +1,4 @@
-module github.com/branebrvl/medium-users-service
+module github.com/fenderdigital/bv-medium-users-service
 
 go 1.19
 
