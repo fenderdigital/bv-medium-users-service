@@ -1,7 +1,9 @@
 package userstore
 
 import (
+	"context"
 	"fmt"
+	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/fenderdigital/bv-medium-users-service/internal"
 )
@@ -13,16 +15,16 @@ type UserRow struct {
 }
 
 type UsersDB interface {
-	PutItem(input *dynamodb.PutItemInput) (*dynamodb.PutItemOutput, error)
+	PutItemWithContext(ctx aws.Context, input *dynamodb.PutItemInput) (*dynamodb.PutItemOutput, error)
 }
 
 type UsersClient struct {
 	API UsersDB
 }
 
-func (c *UsersClient) Create(id, name, email string) (*internal.User, error) {
+func (c *UsersClient) Create(ctx context.Context, id, name, email string) (*internal.User, error) {
 	in := c.BuildUserRow(id, name, email)
-	out, err := c.API.PutItem(in)
+	out, err := c.API.PutItemWithContext(ctx, in)
 	if err != nil {
 		return nil, fmt.Errorf("PutItem failed: %w", err)
 	}
