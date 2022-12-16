@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/fenderdigital/bv-medium-users-service/internal"
-	"github.com/fenderdigital/bv-medium-users-service/internal/pkg"
 )
 
 type Storage interface {
@@ -14,13 +13,16 @@ type Messaging interface {
 	Publish(msg string) error
 }
 
+type IDGenerator func() (string, error)
+
 type CreateUser struct {
 	store Storage
 	msg   Messaging
+	uuid  IDGenerator
 }
 
 func (s *CreateUser) Create(ctx context.Context, name, email string) error {
-	id, err := pkg.GenerateUUID()
+	id, err := s.uuid()
 	if err != nil {
 		return fmt.Errorf("pkg.GenerateUUID failed: %w", err)
 	}
